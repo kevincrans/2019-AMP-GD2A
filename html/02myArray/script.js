@@ -7,16 +7,34 @@ const height = window.innerHeight;
 canvas.width = width;
 canvas.height = height;
 
-let A = new Point(new Vector2d(200,200),100,"red");
-A.draw(context);
+let balls = [];
+let maxPoints = 10;
+
+for(let i=0; i< maxPoints ; i++){
+  let  ball = new Point(new Vector2d(getRandom(width),getRandom(height)),20,"red");
+  balls.push(ball)
+}
+
+function animate(){
+  	requestAnimationFrame(animate);
+    for(let i =0; i<balls.length;i++){
+      balls[i].draw(context);
+    }
+}
 
 window.addEventListener('click',(evt)=>{
   let mouseVector = new Vector2d(evt.clientX,evt.clientY);
-  let differenceMousePoint = new Vector2d(0,0);
+  for(let i =0; i < balls.length; i++){
+    let distanceMouseBall = new Vector2d(0,0);
+    distanceMouseBall.differenceVector(mouseVector,balls[i].position);
+    if(distanceMouseBall.magnitude < 20){
+      balls[i].color = "blue";
+    }
+  }
+})
 
-  console.log(mouseVector);
+animate();
 
-  differenceMousePoint.differenceVector(A.position,mouseVector);
-  console.log(differenceMousePoint)
-
-});
+function getRandom(max){
+  return Math.floor(Math.random()*max);
+}
