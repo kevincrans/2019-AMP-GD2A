@@ -24,14 +24,13 @@ function animate(){
 
 window.addEventListener('click',(evt)=>{
   let mouseVector = new Vector2d(evt.clientX,evt.clientY);
-  for(let i =0; i < balls.length; i++){
-    let distanceMouseBall = new Vector2d(0,0);
-    distanceMouseBall.differenceVector(mouseVector,balls[i].position);
+      let distanceMouseBall = new Vector2d(0,0);
+    distanceMouseBall.differenceVector(mouseVector,balls[i].position);  
     if(distanceMouseBall.magnitude < 20){
       balls[i].color = "blue";
     }
   }
-})
+});
 
 animate();
 
